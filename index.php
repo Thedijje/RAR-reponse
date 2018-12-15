@@ -42,7 +42,7 @@
 
 	error_reporting(-1);
 	ini_set('memory_limit', '1024M');
-	$server 	=	$_SERVER['SERVER_NAME'] ?? 'staging.mobi-hub.com';
+	$server 	=	$_SERVER['SERVER_NAME'] ?? 'http://localhost:8010';
 	// echo $server;
 	// exit();
 	date_default_timezone_set('Asia/Kolkata');
@@ -54,8 +54,8 @@
 		*	Local system
 		*/
 			define('DB_GROUP','DB_LOCAL');
-			define('BASE_URL','http://localhost/mobihub/');
-			define('ENV','production');
+			define('BASE_URL','http://localhost:8010/rar-response/');
+			define('ENV','development');
 			$app_dir = 'applications/app_1_0/';
 		break;
 
@@ -70,11 +70,10 @@
 
 
 		default:
-			
 		header('location:http://example.com/?ref='.base64_encode($server));
 		exit();
 
-
+	}
 
 /*
  *---------------------------------------------------------------
@@ -106,7 +105,7 @@
 switch (ENVIRONMENT)
 {
 	case 'development':
-		error_reporting(-1);
+		error_reporting(E_ALL);
 		ini_set('display_errors', 1);
 	break;
 
@@ -154,8 +153,9 @@ switch (ENVIRONMENT)
  *
  * NO TRAILING SLASH!
  */
-	$application_folder = 'application';
+	$application_folder = $app_dir ?? 'application/';
 
+	
 /*
  *---------------------------------------------------------------
  * VIEW DIRECTORY NAME
