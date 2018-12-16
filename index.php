@@ -54,7 +54,7 @@
 		*	Local system
 		*/
 			define('DB_GROUP','DB_LOCAL');
-			define('BASE_URL','http://localhost:8010/rar-response/');
+			define('BASE_URL','http://localhost:8010/response/');
 			define('ENV','development');
 			$app_dir = 'applications/app_1_0/';
 		break;
@@ -93,6 +93,7 @@
  * NOTE: If you change these, also change the error_reporting() code below
  */
 	define('ENVIRONMENT', isset($_SERVER['CI_ENV']) ? $_SERVER['CI_ENV'] : 'development');
+	// define('ENVIRONMENT', isset($_SERVER['CI_ENV']) ? $_SERVER['CI_ENV'] : 'development');
 
 /*
  *---------------------------------------------------------------
@@ -153,7 +154,7 @@ switch (ENVIRONMENT)
  *
  * NO TRAILING SLASH!
  */
-	$application_folder = $app_dir ?? 'application/';
+	$application_folder = $app_dir ?? 'application/app_1_0';
 
 	
 /*
