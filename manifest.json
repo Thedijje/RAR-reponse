@@ -27,8 +27,8 @@
       }
   
     ],
-    "start_url": "/rar?ref=pwd",
-    "scope":"/rar",
+    "start_url": "/response?ref=pwd",
+    "scope":"/response",
     "background_color": "#ff5722",
     "display": "standalone",
     "theme_color": "#b23c17"
