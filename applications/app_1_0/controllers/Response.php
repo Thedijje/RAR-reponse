@@ -113,4 +113,46 @@ class Response extends CI_Controller {
         }
         exit();
     }
+
+    public function get_distance(){
+
+        $input = $this->input->post();
+        // var_dump($input);
+        //get location values from the database
+        $my_lat = $input['my_lat'];
+        $my_lon = $input['my_lon'];
+
+        $dest_lat = $input['dest_lat'];
+        $dest_lon = $input['dest_lon'];
+        $curl = curl_init();
+        $pts = $my_lat.",".$my_lon."|".$dest_lat.",".$dest_lon;       
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => "https://apis.mapmyindia.com/advancedmaps/v1/j2xrsx5hpruvfbn9nrzj1jnx6i39ykhi/distance?center=".$my_lat.",".$my_lon."&pts=".$pts."&rtype=0",
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => "",
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 30,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => "GET",
+        CURLOPT_HTTPHEADER => array(
+            "Cache-Control: no-cache",
+        ),
+        CURLOPT_POSTREDIR   => 3,
+        CURLOPT_FOLLOWLOCATION=> TRUE,
+        ));
+        // curl_setopt($curl, CURLOPT_POSTREDIR, 3);
+
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+
+        curl_close($curl);
+
+        if ($err) {
+        echo "cURL Error #:" . $err;
+        } else {
+        echo $response;
+        }
+        exit();
+    }
 }

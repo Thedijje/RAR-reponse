@@ -52,3 +52,4 @@ ERROR - 2018-12-16 10:19:17 --> Severity: Notice --> Undefined index: dest_lat /
 ERROR - 2018-12-16 10:19:17 --> Severity: Notice --> Undefined index: dest_lon /Applications/MAMP/htdocs/response/applications/app_1_0/controllers/Response.php 83
 ERROR - 2018-12-16 10:19:17 --> Severity: Notice --> Undefined variable: msg /Applications/MAMP/htdocs/response/applications/app_1_0/controllers/Response.php 93
 ERROR - 2018-12-16 10:19:50 --> Severity: Notice --> Undefined variable: msg /Applications/MAMP/htdocs/response/applications/app_1_0/controllers/Response.php 93
+ERROR - 2018-12-16 11:04:58 --> 404 Page Not Found: Get_distance/index

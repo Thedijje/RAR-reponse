@@ -2,7 +2,7 @@
 <div class="jumbotron">
     <h1 class="display-4 text-center">Respond Now!</h1>
     <div class="card" style="height:400px;">
-    
+        <h2 class="text-center  distance-map"></h2>
         <div id="map"></div>
         
     </div>
@@ -37,28 +37,30 @@ function render_map(position) {
 
     var pts = [new L.LatLng(my_lat, my_lon), /*WGS location object*/
             new L.LatLng(lat_to_go, lon_to_go)]; /*WGS location object*/
-    // var pt = new L.LatLng(28.549948, 77.268241); /*WGS location object*/
-    // map.setView(pt, 12); /*function that modifies both center map position and zoom leveL.*/
-    console.log(pts);
+    var src = new L.LatLng(my_lat, my_lon); /*WGS location object*/
+    map.setView(src, 12); /*function that modifies both center map position and zoom leveL.*/
+    L.marker(src).addTo(map);
+    var dest = new L.LatLng(lat_to_go, lon_to_go); /*WGS location object*/
+    L.marker(dest).addTo(map);
+    // console.log(pts);
     $.ajax({
         data:{my_lat:my_lat,my_lon:my_lon,dest_lat:lat_to_go,dest_lon:lon_to_go},
         type:'POST',
         dataType:'json',
         url:base_url+'get_route',
         success:function(res){
-            // console.log(res.response);
-            // var pts = [ 
-            //     new L.LatLng(center.lat - 150 / 10000, center.lng - 150 / 10000),
-            //     new L.LatLng(center.lat + 0 / 10000, center.lng - 50 / 10000),
-            //     new L.LatLng(center.lat + 50 / 10000, center.lng - 100 / 10000),
-            //     new L.LatLng(center.lat + 70 / 10000, center.lng + 50 / 10000),
-            //     new L.LatLng(center.lat - 70 / 10000, center.lng + 100 / 10000) 
-            // ];
-            // var advice
+            
+            var pts = []; 
+            var advice = res.results.trips[0].advices;
+            console.log(advice[0].pt);
+            $.each(advice,function(){
+                pts.push(this.pt);
+            // console.log(this.pt);
+            });
             var polylineParam = 
                 { 
                 weight: 4, // The thickness of the polyline 
-                opacity: 0.5 //The opacity of the polyline colour 
+                opacity: 0.8 //The opacity of the polyline colour 
                 };
             var poly = new L.Polyline(pts, polylineParam);
             map.addLayer(poly);
@@ -66,7 +68,29 @@ function render_map(position) {
         failure:function(){}
 
     });
-    // L.marker(pts).addTo(map);
+
+
+    $.ajax({
+        data:{my_lat:my_lat,my_lon:my_lon,dest_lat:lat_to_go,dest_lon:lon_to_go},
+        type:'POST',
+        dataType:'json',
+        url:base_url+'get_distance',
+        success:function(res){
+            
+            // var pts = []; 
+            // var advice = res.results.trips[0].advices;
+            console.log(res.results[1].duration);
+            var time = res.results[1].duration;
+            secondsToHms = secondsToHms(time);
+            // alert();
+            $(".distance-map").html('<i class="fa fa-clock-o fa-fw fa-icon"></i>Approx. <strong>'+ secondsToHms + '</strong> to destination');
+            
+        },
+        failure:function(){}
+
+    });
+
+    
 
     // $("#mov_center").click(function() {
     // });
@@ -84,4 +108,15 @@ $().ready(function(){
 
     // });
 });
+
+function secondsToHms(d) {
+    d = Number(d);
+    var h = Math.floor(d / 3600);
+    var m = Math.floor(d % 3600 / 60);
+    var s = Math.floor(d % 3600 % 60);
+
+    var hDisplay = h > 0 ? h + (h == 1 ? " : " : " : ") : "";
+    var mDisplay = m > 0 ? m + (m == 1 ? " " : " ") : "";
+    return hDisplay + mDisplay ; 
+}
 </script>

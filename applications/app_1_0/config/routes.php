@@ -52,5 +52,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'response';
 $route['respond/(:any)'] = 'response/respond/$1';
 $route['get_route'] = 'response/get_route/';
+$route['get_distance'] = 'response/get_distance/';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

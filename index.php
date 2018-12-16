@@ -53,11 +53,19 @@
 		/*
 		*	Local system
 		*/
-			define('DB_GROUP','DB_LOCAL');
-			define('BASE_URL','http://localhost:8010/response/');
-			define('ENV','development');
-			$app_dir = 'applications/app_1_0/';
+		define('DB_GROUP','DB_LOCAL');
+		define('BASE_URL','http://localhost:8010/response/');
+		define('ENV','development');
+		$app_dir = 'applications/app_1_0/';
 		break;
+
+		case '10.104.202.11':
+		define('DB_GROUP','DB_LOCAL');
+		define('BASE_URL','http://10.104.202.11:8010/response/');
+		define('ENV','development');
+		$app_dir = 'applications/app_1_0/';
+		break;
+		
 
 		case 'http://example.com/':
 			define('DB_GROUP','DB_PRODUCTION');
